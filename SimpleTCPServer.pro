@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     tcpserver.cpp
 
 HEADERS  += mainwindow.h \
-    tcpserver.h
+    tcpserver.h \
+    TraCIConstants.h
 
 FORMS    += \
     mainwindow.ui
