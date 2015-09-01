@@ -6,7 +6,7 @@ TCPServer::TCPServer(QObject* parent): QObject(parent)
 {
   connect(&server, SIGNAL(newConnection()),
     this, SLOT(acceptConnection()));
-
+  readCount = 0;
   server.listen(QHostAddress::Any, 8888);
 }
 
@@ -26,10 +26,24 @@ void TCPServer::acceptConnection()
 
 void TCPServer::startRead()
 {
+  QByteArray data;
   if(client->state() == QTcpSocket::ConnectedState)
   {
   QByteArray buffer(client->bytesAvailable(),0);
   buffer = client->readAll();
   cout << "I received:" << buffer.constData() << endl;
+  if(strcmp("Do you have something to send?",buffer.constData()) == 0)
+  {
+      data.append(QByteArray::number(0xAB));
+      data.prepend(QByteArray::number(0x01));
+      cout << "writing;" << data.constData() << endl;
+      client->write(data);
+  }
+    if(++readCount >= 100000){
+            data.append("platoon1.7");
+            data.append(0.0);
+            data.prepend(data.size());
+            client->write(data);
+    }
   }
 }

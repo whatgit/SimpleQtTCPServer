@@ -18,6 +18,7 @@ class TCPServer : public QObject
   private:
     QTcpServer server;
     QTcpSocket* client;
+    int readCount;
 };
 
 #endif // TCPSERVER_H
