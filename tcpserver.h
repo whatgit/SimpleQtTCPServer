@@ -13,6 +13,7 @@ class TCPServer : public QObject
   public:
     TCPServer(QObject * parent = 0);
     ~TCPServer();
+    void sendPacket(const char* data);
   public slots:
     void acceptConnection();
     void startRead();
