@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QByteArray>
+#include "TraCIConstants.h"
 
 class TCPServer : public QObject
 {
