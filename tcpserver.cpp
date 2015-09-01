@@ -28,14 +28,8 @@ void TCPServer::startRead()
 {
   if(client->state() == QTcpSocket::ConnectedState)
   {
-  char* buffer = new char[client->bytesAvailable()];
-  //char buffer[1024];
-  client->read(buffer, client->bytesAvailable());
-  cout << "I received:" << buffer << endl;
-  //cout << buffer << endl;
-  client->write(buffer);
-  client->flush();
-  //client->close();
-  delete[] buffer;
+  QByteArray buffer(client->bytesAvailable(),0);
+  buffer = client->readAll();
+  cout << "I received:" << buffer.constData() << endl;
   }
 }
