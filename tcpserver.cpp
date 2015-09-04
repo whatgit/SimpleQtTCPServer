@@ -34,6 +34,7 @@ void TCPServer::startRead()
   cout << "I received:" << buffer.constData() << endl;
   if(buffer.contains("Do you have something to send?"))
   {
+      /*
       char msg[15];
           msg[0] = 0; //first four char-values give size of complete message
           msg[1] = 0;
@@ -50,20 +51,50 @@ void TCPServer::startRead()
           msg[12] = 10;
           msg[13] = 99;
           msg[14] = POSITION_2D; // Type of data given back (car positions)
-      quint32 datasize = 0x0002;
-      quint32 data1 = 0x0fff;
-      quint32 data2 = 0x0015;
-      QString str;
-      QByteArray block;
-      QDataStream sendStream(&block, QIODevice::ReadWrite);
-      sendStream << quint32(0) << data1 << data2;
+          */
+      // Try to send change lane command
+      char msg[29];
+          msg[0] = 0; //first four char-values give size of complete message
+          msg[1] = 0;
+          msg[2] = 0;
+          msg[3] = 29;
+          msg[4] = 25; // size of the message without first four char-values
+          msg[5] = CMD_SET_VEHICLE_VARIABLE; // Command Type
+          msg[6] = CMD_CHANGELANE; // next 8 char-values give target time value
+          msg[7] = 'p';
+          msg[8] = 'l';
+          msg[9] = 'a';
+          msg[10] = 't';
+          msg[11] = 'o';
+          msg[12] = 'o';
+          msg[13] = 'n';
+          msg[14] = '1';
+          msg[15] = '.';
+          msg[16] = '4';
+          msg[17] = TYPE_COMPOUND;
+          //integer 2
+          msg[18] = 0;
+          msg[19] = 0;
+          msg[20] = 0;
+          msg[21] = 2;
+          //
+          msg[22] = TYPE_BYTE;
+          msg[23] = 2;
+          msg[24] = TYPE_INTEGER;
+          //1000ms
+          msg[25] = 0;
+          msg[26] = 0;
+          msg[27] = 0x03;
+          msg[28] = 0xe8;
+          //
 
-      sendStream.device()->seek(0);
-      sendStream << (quint32)(block.size()-sizeof(quint32));
+      string message = quint32(15) + quint8(11) + "hellohello";
+      quint32 datasize = 0x000f;
+
 
       cout<< "I'm writing : " << msg << endl;
-      client->write(msg,15);
-      //client->write(block,block.size());
+      client->write(msg,29);
+      //client->write(message.c_str(),15);
   }
     if(++readCount >= 100000){
             data.append("platoon1.7");
