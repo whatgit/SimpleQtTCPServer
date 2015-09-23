@@ -6,6 +6,7 @@
 #include <QTcpSocket>
 #include <QByteArray>
 #include "TraCIConstants.h"
+#include "traciwrapper.h"
 
 class TCPServer : public QObject
 {
@@ -21,6 +22,7 @@ class TCPServer : public QObject
     QTcpServer server;
     QTcpSocket* client;
     int readCount;
+    TraCIWrapper wrapper;
 };
 
 #endif // TCPSERVER_H

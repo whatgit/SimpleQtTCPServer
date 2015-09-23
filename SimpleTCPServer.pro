@@ -15,11 +15,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    tcpserver.cpp
+    tcpserver.cpp \
+    traciwrapper.cpp
 
 HEADERS  += mainwindow.h \
     tcpserver.h \
-    TraCIConstants.h
+    TraCIConstants.h \
+    traciwrapper.h \
+    VTIConstants.h
 
 FORMS    += \
     mainwindow.ui
